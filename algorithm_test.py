@@ -51,17 +51,27 @@ def run_tests(i, X, y, y_pred, time):
 
 
 print(f'Start Time: {datetime.now()}')
+
+'''
+IMPORT YOUR ALGORITHM HERE
+e.g.
 from sklearn.cluster import KMeans
+'''
+
 
 for i in range(0, len(Xs)):
     print(('=' * 10) + f' Dataset {i} ' + ('=' * 10))
     print(blobs_made[i])
     X = Xs[i]
     y = ys[i]
-    agg = KMeans(n_clusters=clusters[i]).fit(X)
-    # agg = Agg(desired_clusters=clusters[i], metric='euclidean')
+    '''
+    CREATE CLASSIFER HERE, FIT X AND SET y_pred TO LABELS
+    e.g.
+    clf = KMeans(n_clusters=clusters[i]).fit(X)
     start = datetime.now()
-    agg.fit(X)
+    clf.fit(X)
+    y_pred = clf.labels_
+    '''
     runtime = (datetime.now() - start).microseconds
     print(f'microseconds = {runtime}')
     run_tests(i, X, y, agg.labels_, runtime)
