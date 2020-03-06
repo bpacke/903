@@ -1,7 +1,7 @@
 from datetime import datetime
 from sklearn.metrics import *
 from statistics import stdev, mean, median
-from ds import *
+from generated_datasets import *
 from tabulate import tabulate
 from os import getcwd
 import getpass
