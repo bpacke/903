@@ -1,4 +1,3 @@
-from cluster_latest import Agg
 from datetime import datetime
 from sklearn.metrics import *
 from statistics import stdev, mean, median
