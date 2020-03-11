@@ -204,7 +204,7 @@ plot_data = [(sadj, s_labels, 'Adjusted Rand Score by Number of Samples'),
 (stime, s_labels, 'Time (μ seconds) by Number of Samples'),
 (ftime, f_labels, 'Time (μ seconds) by Number of Features'),
 (ctime, c_labels, 'Time (μ seconds) by Number of Clusters'),
-(sttime, ,st_labels 'Time (μ seconds) by Standard Deviation of Dataset')]
+(sttime, st_labels, 'Time (μ seconds) by Standard Deviation of Dataset')]
 
 filenumber = 0
 for p in plot_data:
