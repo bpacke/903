@@ -176,10 +176,10 @@ fhomo= [[homo_scores[i] for i in features1], [homo_scores[i] for i in features2]
 chomo = [[homo_scores[i] for i in clusters1], [homo_scores[i] for i in clusters2], [homo_scores[i] for i in clusters3]]
 sthomo = [[homo_scores[i] for i in noise1], [homo_scores[i] for i in noise2], [homo_scores[i] for i in noise3]]
 
-stime = [[times_scores[i] for i in samples1], [times_scores[i] for i in samples2], [times_scores[i] for i in samples3]]
-ftime = [[times_scores[i] for i in features1], [times_scores[i] for i in features2], [times_scores[i] for i in features3]]
-ctime = [[times_scores[i] for i in clusters1], [times_scores[i] for i in clusters2], [times_scores[i] for i in clusters3]]
-sttime = [[times_scores[i] for i in noise1], [times_scores[i] for i in noise2], [times_scores[i] for i in noise3]]
+stime = [[times[i] for i in samples1], [times[i] for i in samples2], [times[i] for i in samples3]]
+ftime = [[times[i] for i in features1], [times[i] for i in features2], [times[i] for i in features3]]
+ctime = [[times[i] for i in clusters1], [times[i] for i in clusters2], [times[i] for i in clusters3]]
+sttime = [[times[i] for i in noise1], [times[i] for i in noise2], [times[i] for i in noise3]]
 
 plot_data = [(sadj, s_labels, 'Adjusted Rand Score by Number of Samples'),
 (fadj, f_labels, 'Adjusted Rand Score by Number of Features'),
