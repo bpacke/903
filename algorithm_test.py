@@ -1,6 +1,6 @@
 from datetime import datetime
 from generated_datasets import *
-from os import getcwd, listdir,path, remove
+from os import getcwd, listdir, path
 from os.path import isfile, join
 from sklearn.metrics import *
 from statistics import stdev, mean, median
@@ -220,6 +220,4 @@ for p in plot_data:
 zipObj = ZipFile('test_output.zip', 'w')
 [zipObj.close().write(x) for x in [f for f in listdir(getcwd()) if isfile(join(getcwd(), f))] if x[-3:] == 'png' or x[-3:] == 'txt']
 zipObj.close()
-[remove(x) for x in [f for f in listdir(getcwd()) if isfile(join(getcwd(), f))] if x[-3:] == 'png' or
- x[-3:] == 'txt']
 print('DONE')
