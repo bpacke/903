@@ -217,7 +217,7 @@ for p in plot_data:
     plt.savefig(str(filenumber) + '.png')
     filenumber += 1
 # create a ZipFile object
-zipObj = ZipFile('sample.zip', 'w')
+zipObj = ZipFile('test_output.zip', 'w')
 [zipObj.close().write(x) for x in [f for f in listdir(getcwd()) if isfile(join(getcwd(), f))] if x[-3:] == 'png' or x[-3:] == 'txt']
 zipObj.close()
 print('DONE')
