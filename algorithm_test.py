@@ -5,7 +5,6 @@ from generated_datasets import *
 from tabulate import tabulate
 from os import getcwd
 import getpass
-import wget
 
 
 scores = []
@@ -84,7 +83,7 @@ verbose_test_output.close()
 
 
 def print_report(title, adj, bal, hamm, comp, homo, time):
-    test_report = open(f'{getcwd()}/test_output/test_report_{title}.csv', 'w')
+    test_report = open(f'{getcwd()}/test_report_{title}.txt', 'w')
     headers = 'metric;min;max;mean;median;std_dev'.split(';')
     table = []
     table.append(['Adjusted Rand Score', min(adj), max(adj), mean(adj), median(adj), stdev(adj)])
@@ -142,5 +141,4 @@ reports = [
 for rep in reports:
     print_report(*rep)
 
-wget.download('https://maker.ifttt.com/trigger/linode/with/key/c-r9dcDtRv2Q-q5UpKqht3')  #will throw error but that's not a problem
 print('DONE')
