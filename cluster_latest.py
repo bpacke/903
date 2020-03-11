@@ -5,19 +5,19 @@ from collections import Counter
 
 
 class Agg:
-    def __init__(self, desired_clusters, metric='euclidean'):
+    def __init__(self, n_clusters, metric='euclidean'):
         self.metrics_implemented = ['euclidean', 'manhattan', 'chebyshev']
         if metric not in self.metrics_implemented:
             raise NotImplementedError(f'Metric "{metric}" is not an implemented distance metric. '
                                       f'Available metrics:\n{self.metrics_implemented}')
-        self.desired_clusters = desired_clusters
+        self.n_clusters = n_clusters
         self.metric = metric
         self.labels_ = np.array([])
         self.x_clusters = []
 
     def fit(self, x):
         x_clusters = [self.Cluster(z) for z in x]
-        while len(x_clusters) > self.desired_clusters:
+        while len(x_clusters) > self.n_clusters:
             centroids = [c.centroid for c in x_clusters]
             sci_distances = []
             if self.metric == 'euclidean':
