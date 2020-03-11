@@ -1,13 +1,13 @@
 from datetime import datetime
+from generated_datasets import *
+from os import getcwd, listdir,path, remove
+from os.path import isfile, join
 from sklearn.metrics import *
 from statistics import stdev, mean, median
-from generated_datasets import *
 from tabulate import tabulate
-from os import getcwd, path, listdir
-from os.path import isfile, join
+from zipfile import ZipFile
 import getpass
 import matplotlib.pyplot as plt
-from zipfile import ZipFile
 
 '''
 IMPORT YOUR ALGORITHM HERE
@@ -66,9 +66,9 @@ for i in range(0, len(Xs)):
     X = Xs[i]
     y = ys[i]
     '''
-    CREATE CLASSIFER HERE, FIT X AND SET y_pred TO LABELS
+    CREATE CLASSIFER HERE
     e.g.
-    clf = KMeans(n_clusters=clusters[i]).fit(X)
+    clf = KMeans(n_clusters=clusters[i])
     '''
     start = datetime.now()
     clf.fit(X)
@@ -220,4 +220,6 @@ for p in plot_data:
 zipObj = ZipFile('test_output.zip', 'w')
 [zipObj.close().write(x) for x in [f for f in listdir(getcwd()) if isfile(join(getcwd(), f))] if x[-3:] == 'png' or x[-3:] == 'txt']
 zipObj.close()
+[remove(x) for x in [f for f in listdir(getcwd()) if isfile(join(getcwd(), f))] if x[-3:] == 'png' or
+ x[-3:] == 'txt']
 print('DONE')
