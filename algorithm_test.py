@@ -3,8 +3,9 @@ from sklearn.metrics import *
 from statistics import stdev, mean, median
 from generated_datasets import *
 from tabulate import tabulate
-from os import getcwd
+from os import getcwd, path
 import getpass
+import matplotlib.pyplot as plt
 '''
 IMPORT YOUR ALGORITHM HERE
 e.g.
@@ -81,7 +82,12 @@ verbose_test_output.close()
 
 
 def print_report(title, adj, bal, hamm, comp, homo, time):
-    test_report = open(f'{getcwd()}/test_report_{title}.txt', 'w')
+    if path.exists('report.txt'):
+        write_mode = 'a'
+    else:
+        write_mode = 'w'
+    test_report = open(f'{getcwd()}/report.txt', write_mode)
+    test_report.write('=' * 15 + title + '=' * 15 + '\n')
     headers = 'metric;min;max;mean;median;std_dev'.split(';')
     table = []
     table.append(['Adjusted Rand Score', min(adj), max(adj), mean(adj), median(adj), stdev(adj)])
@@ -91,52 +97,120 @@ def print_report(title, adj, bal, hamm, comp, homo, time):
     table.append(['Homogeneity Score', min(homo), max(homo), mean(homo), median(homo), stdev(homo)])
     table.append(['Time', min(time), max(time), mean(time), median(time), stdev(time)])
     test_report.write(tabulate(table, headers=headers))
+    test_report.write('\n' * 3)
     test_report.close()
 
 
 reports = [
-    ['175 Samples', [adj_scores[i] for i in samples1], [bal_scores[i] for i in samples1],
+    ['Sample Size = 175', [adj_scores[i] for i in samples1], [bal_scores[i] for i in samples1],
      [hamm_scores[i] for i in samples1], [comp_scores[i] for i in samples1], [homo_scores[i] for i in samples1],
      [times[i] for i in samples1]],
-    ['350 Samples', [adj_scores[i] for i in samples2], [bal_scores[i] for i in samples2],
+    ['Sample Size = 350', [adj_scores[i] for i in samples2], [bal_scores[i] for i in samples2],
      [hamm_scores[i] for i in samples2], [comp_scores[i] for i in samples2], [homo_scores[i] for i in samples2],
      [times[i] for i in samples2]],
-    ['700 Samples', [adj_scores[i] for i in samples3], [bal_scores[i] for i in samples3],
+    ['Sameple Size = 700', [adj_scores[i] for i in samples3], [bal_scores[i] for i in samples3],
      [hamm_scores[i] for i in samples3], [comp_scores[i] for i in samples3], [homo_scores[i] for i in samples3],
      [times[i] for i in samples3]],
     
-    ['3_Features', [adj_scores[i] for i in features1], [bal_scores[i] for i in features1],
+    ['Feature Count = 3', [adj_scores[i] for i in features1], [bal_scores[i] for i in features1],
      [hamm_scores[i] for i in features1], [comp_scores[i] for i in features1], [homo_scores[i] for i in features1],
      [times[i] for i in features1]],
-    ['15_Features', [adj_scores[i] for i in features2], [bal_scores[i] for i in features2],
+    ['Feature Count = 15', [adj_scores[i] for i in features2], [bal_scores[i] for i in features2],
      [hamm_scores[i] for i in features2], [comp_scores[i] for i in features2], [homo_scores[i] for i in features2],
      [times[i] for i in features2]],
-    ['32_Features', [adj_scores[i] for i in features3], [bal_scores[i] for i in features3],
+    ['Feature Count = 32', [adj_scores[i] for i in features3], [bal_scores[i] for i in features3],
      [hamm_scores[i] for i in features3], [comp_scores[i] for i in features3], [homo_scores[i] for i in features3],
      [times[i] for i in features3]],
 
-    ['3_Clusters', [adj_scores[i] for i in clusters1], [bal_scores[i] for i in clusters1],
+    ['Cluster Count = 3', [adj_scores[i] for i in clusters1], [bal_scores[i] for i in clusters1],
      [hamm_scores[i] for i in clusters1], [comp_scores[i] for i in clusters1], [homo_scores[i] for i in clusters1],
      [times[i] for i in clusters1]],
-    ['6_Clusters', [adj_scores[i] for i in clusters2], [bal_scores[i] for i in clusters2],
+    ['Cluster Count = 6', [adj_scores[i] for i in clusters2], [bal_scores[i] for i in clusters2],
      [hamm_scores[i] for i in clusters2], [comp_scores[i] for i in clusters2], [homo_scores[i] for i in clusters2],
      [times[i] for i in clusters2]],
-    ['9_Clusters', [adj_scores[i] for i in clusters3], [bal_scores[i] for i in clusters3],
+    ['Cluster Count = 9', [adj_scores[i] for i in clusters3], [bal_scores[i] for i in clusters3],
      [hamm_scores[i] for i in clusters3], [comp_scores[i] for i in clusters3], [homo_scores[i] for i in clusters3],
      [times[i] for i in clusters3]],
 
-    ['1_stddev', [adj_scores[i] for i in noise1], [bal_scores[i] for i in noise1],
+    ['Standard Deviation = 1', [adj_scores[i] for i in noise1], [bal_scores[i] for i in noise1],
      [hamm_scores[i] for i in noise1], [comp_scores[i] for i in noise1], [homo_scores[i] for i in noise1],
      [times[i] for i in noise1]],
-    ['3_stddev', [adj_scores[i] for i in noise2], [bal_scores[i] for i in noise2],
+    ['Standard Deviation = 3', [adj_scores[i] for i in noise2], [bal_scores[i] for i in noise2],
      [hamm_scores[i] for i in noise2], [comp_scores[i] for i in noise2], [homo_scores[i] for i in noise2],
      [times[i] for i in noise2]],
-    ['5_stddev', [adj_scores[i] for i in noise3], [bal_scores[i] for i in noise3],
+    ['Standard Deviation = 5', [adj_scores[i] for i in noise3], [bal_scores[i] for i in noise3],
      [hamm_scores[i] for i in noise3], [comp_scores[i] for i in noise3], [homo_scores[i] for i in noise3],
      [times[i] for i in noise3]]
 ]
 
 for rep in reports:
     print_report(*rep)
+s_labels = ['175 samples', '350 samples', '700 samples']
+f_labels = ['3 features', '15 features', '32 features']
+c_labels = ['3 clusters', '6 clusters', '9 clusters']
+st_labels = ['σ = 1', 'σ = 3', 'σ = 5']
 
+sadj = [[adj_scores[i] for i in samples1], [adj_scores[i] for i in samples2], [adj_scores[i] for i in samples3]]
+fadj = [[adj_scores[i] for i in features1], [adj_scores[i] for i in features2], [adj_scores[i] for i in features3]]
+cadj = [[adj_scores[i] for i in clusters1], [adj_scores[i] for i in clusters2], [adj_scores[i] for i in clusters3]]
+stadj = [[adj_scores[i] for i in noise1], [adj_scores[i] for i in noise2], [adj_scores[i] for i in noise3]]
+
+
+sbal = [[bal_scores[i] for i in samples1], [bal_scores[i] for i in samples2], [bal_scores[i] for i in samples3]]
+fbal = [[bal_scores[i] for i in features1], [bal_scores[i] for i in features2], [bal_scores[i] for i in features3]]
+cbal = [[bal_scores[i] for i in clusters1], [bal_scores[i] for i in clusters2], [bal_scores[i] for i in clusters3]]
+stbal = [[bal_scores[i] for i in noise1], [bal_scores[i] for i in noise2], [bal_scores[i] for i in noise3]]
+
+shamm = [[hamm_scores[i] for i in samples1], [hamm_scores[i] for i in samples2], [hamm_scores[i] for i in samples3]]
+fhamm = [[hamm_scores[i] for i in features1], [hamm_scores[i] for i in features2], [hamm_scores[i] for i in features3]]
+chamm = [[hamm_scores[i] for i in clusters1], [hamm_scores[i] for i in clusters2], [hamm_scores[i] for i in clusters3]]
+sthamm = [[hamm_scores[i] for i in noise1], [hamm_scores[i] for i in noise2], [hamm_scores[i] for i in noise3]]
+
+scomp = [[comp_scores[i] for i in samples1], [comp_scores[i] for i in samples2], [comp_scores[i] for i in samples3]]
+fcomp = [[comp_scores[i] for i in features1], [comp_scores[i] for i in features2], [comp_scores[i] for i in features3]]
+ccomp = [[comp_scores[i] for i in clusters1], [comp_scores[i] for i in clusters2], [comp_scores[i] for i in clusters3]]
+stcomp= [[comp_scores[i] for i in noise1], [comp_scores[i] for i in noise2], [comp_scores[i] for i in noise3]]
+
+shomo = [[homo_scores[i] for i in samples1], [homo_scores[i] for i in samples2], [homo_scores[i] for i in samples3]]
+fhomo= [[homo_scores[i] for i in features1], [homo_scores[i] for i in features2], [homo_scores[i] for i in features3]]
+chomo = [[homo_scores[i] for i in clusters1], [homo_scores[i] for i in clusters2], [homo_scores[i] for i in clusters3]]
+sthomo = [[homo_scores[i] for i in noise1], [homo_scores[i] for i in noise2], [homo_scores[i] for i in noise3]]
+
+stime = [[times_scores[i] for i in samples1], [times_scores[i] for i in samples2], [times_scores[i] for i in samples3]]
+ftime = [[times_scores[i] for i in features1], [times_scores[i] for i in features2], [times_scores[i] for i in features3]]
+ctime = [[times_scores[i] for i in clusters1], [times_scores[i] for i in clusters2], [times_scores[i] for i in clusters3]]
+sttime = [[times_scores[i] for i in noise1], [times_scores[i] for i in noise2], [times_scores[i] for i in noise3]]
+
+plot_data = [(sadj, s_labels, 'Adjusted Rand Score by Number of Samples'),
+(fadj, f_labels, 'Adjusted Rand Score by Number of Features'),
+(cadj, c_labels, 'Adjusted Rand Score by Number of Clusters'),
+(stadj, st_labels, 'Adjusted Rand Score by Standard Deviation of Dataset'),
+(sbal, s_labels, 'Balanced Accuracy Score by Number of Samples'),
+(fbal, f_labels, 'Balanced Accuracy Score by Number of Features'),
+(cbal, c_labels, 'Balanced Accuracy Score by Number of Clusters'),
+(stbal, st_labels, 'Balanced Accuracy Score by Standard Deviation of Dataset'),
+(shamm, s_labels, 'Hamming Loss by Number of Samples'),
+(fhamm, f_labels, 'Hamming Loss by Number of Features'),
+(chamm, c_labels, 'Hamming Loss by Number of Clusters'),
+(sthamm, st_labels, 'Hamming Loss by Standard Deviation of Dataset'),
+(scomp, s_labels, 'Completeness Score by Number of Samples'),
+(fcomp, f_labels, 'Completeness Score by Number of Features'),
+(ccomp, c_labels, 'Completeness Score by Number of Clusters'),
+(stcomp, st_labels, 'Completeness Score by Standard Deviation of Dataset'),
+(shomo, s_labels, 'Homogeneity Score by Number of Samples'),
+(fhomo, f_labels, 'Homogeneity Score by Number of Features'),
+(chomo, c_labels, 'Homogeneity Score by Number of Clusters'),
+(sthomo, st_labels, 'Homogeneity Score by Standard Deviation of Dataset'),
+(stime, s_labels, 'Time (μ seconds) by Number of Samples'),
+(ftime, f_labels, 'Time (μ seconds) by Number of Features'),
+(ctime, c_labels, 'Time (μ seconds) by Number of Clusters'),
+(sttime, ,st_labels 'Time (μ seconds) by Standard Deviation of Dataset')]
+
+filenumber = 0
+for p in plot_data:
+    fig, ax = plt.subplots()
+    ax.set_title(p[2])
+    ax.boxplot(p[0], labels=p[1], showmeans=True)
+    plt.savefig(str(filenumber) + '.png')
+    filenumber += 1
 print('DONE')
