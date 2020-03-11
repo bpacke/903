@@ -1,4 +1,6 @@
 #!/bin/bash
+yes | sudo apt update
+yes | sudo apt upgrade
 apt-get install python3-pip
 pip3 install matplotlib numpy pandas scikit-learn scipy sklearn tabulate
 wget "https://raw.githubusercontent.com/bpacke/903/master/generated_datasets.py"
