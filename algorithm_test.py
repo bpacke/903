@@ -3,9 +3,12 @@ from sklearn.metrics import *
 from statistics import stdev, mean, median
 from generated_datasets import *
 from tabulate import tabulate
-from os import getcwd, path
+from os import getcwd, path, listdir
+from os.path import isfile, join
 import getpass
 import matplotlib.pyplot as plt
+from zipfile import ZipFile
+
 '''
 IMPORT YOUR ALGORITHM HERE
 e.g.
@@ -213,4 +216,8 @@ for p in plot_data:
     ax.boxplot(p[0], labels=p[1], showmeans=True)
     plt.savefig(str(filenumber) + '.png')
     filenumber += 1
+# create a ZipFile object
+zipObj = ZipFile('sample.zip', 'w')
+[zipObj.close().write(x) for x in [f for f in listdir(getcwd()) if isfile(join(getcwd(), f))] if x[-3:] == 'png' or x[-3:] == 'txt']
+zipObj.close()
 print('DONE')
