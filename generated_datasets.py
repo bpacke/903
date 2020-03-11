@@ -53,7 +53,7 @@ for s in samples:
 
 # print(f'Datasets Count = {len(blobs_made)}')
 # print(f'{getcwd()}/test_output/datasets.txt')
-with open(f'{getcwd()}/test_output/datasets.txt', 'w') as f:
+with open(f'{getcwd()}/datasets.txt', 'w') as f:
     for b in blobs_made:
         f.write(b + '\n')
 
