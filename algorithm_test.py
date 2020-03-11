@@ -67,13 +67,15 @@ for i in range(0, len(Xs)):
     CREATE CLASSIFER HERE, FIT X AND SET y_pred TO LABELS
     e.g.
     clf = KMeans(n_clusters=clusters[i]).fit(X)
+    '''
     start = datetime.now()
+    '''
     clf.fit(X)
     y_pred = clf.labels_
     '''
     runtime = (datetime.now() - start).microseconds
     print(f'microseconds = {runtime}')
-    run_tests(i, X, y, agg.labels_, runtime)
+    run_tests(i, X, y, clf.labels_, runtime)
 
 
 print(f'End Time: {datetime.now()}')
