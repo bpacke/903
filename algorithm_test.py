@@ -5,7 +5,11 @@ from generated_datasets import *
 from tabulate import tabulate
 from os import getcwd
 import getpass
-
+'''
+IMPORT YOUR ALGORITHM HERE
+e.g.
+from sklearn.cluster import KMeans
+'''
 
 scores = []
 
@@ -51,12 +55,6 @@ def run_tests(i, X, y, y_pred, time):
 
 print(f'Start Time: {datetime.now()}')
 
-'''
-IMPORT YOUR ALGORITHM HERE
-e.g.
-from sklearn.cluster import KMeans
-'''
-
 
 for i in range(0, len(Xs)):
     print(('=' * 10) + f' Dataset {i} ' + ('=' * 10))
@@ -69,10 +67,8 @@ for i in range(0, len(Xs)):
     clf = KMeans(n_clusters=clusters[i]).fit(X)
     '''
     start = datetime.now()
-    '''
     clf.fit(X)
     y_pred = clf.labels_
-    '''
     runtime = (datetime.now() - start).microseconds
     print(f'microseconds = {runtime}')
     run_tests(i, X, y, clf.labels_, runtime)
