@@ -1,6 +1,6 @@
 #!/bin/bash
 apt-get install python3-pip
-pip3 install matplotlib numpy pandas scikit-learn scipy sklearn tabulate wget
+pip3 install matplotlib numpy pandas scikit-learn scipy sklearn tabulate
 wget "https://raw.githubusercontent.com/bpacke/903/master/generated_datasets.py"
 wget "https://raw.githubusercontent.com/bpacke/903/master/algorithm_test.py"
 clear
